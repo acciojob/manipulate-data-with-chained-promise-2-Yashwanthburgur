@@ -2,7 +2,7 @@ const array = [1, 2, 3, 4];
 
 // Function to update the output div
 function updateOutput(arr) {
-    document.getElementById('output').textContent = arr.join(', ');
+    document.getElementById('output').textContent = arr.join(',');
 }
 
 // Start the promise chain immediately
