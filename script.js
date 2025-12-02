@@ -1,52 +1,33 @@
-// Your array
 const array = [1, 2, 3, 4];
 
-// Function to filter even numbers
-function filterEvenNumbers(arr) {
-    return arr.filter(num => num % 2 === 0);
-}
-
-// Function to double numbers
-function doubleNumbers(arr) {
-    return arr.map(num => num * 2);
-}
-
-// Update DOM function
 function updateOutput(message) {
-    const output = document.getElementById('output');
-    output.textContent = message;
+    document.getElementById('output').textContent = message;
 }
 
-// Chain promises correctly
+// Start immediately (no initial 3-second wait)
 new Promise((resolve) => {
-    // Initial 3-second delay with original array
-    setTimeout(() => {
-        resolve(array);
-    }, 3000);
+    // Resolve immediately with array
+    resolve(array);
 })
 .then((data) => {
-    // First transformation: filter evens
-    const evenNumbers = filterEvenNumbers(data);
+    const evenNumbers = data.filter(num => num % 2 === 0);
     
     return new Promise((resolve) => {
         setTimeout(() => {
-            // Update DOM after 1 second (total 4 seconds from start)
+            // Show [2, 4] after 1 second
             updateOutput(evenNumbers.join(', '));
             resolve(evenNumbers);
         }, 1000);
     });
 })
 .then((evenNumbers) => {
-    // Second transformation: double evens
     return new Promise((resolve) => {
         setTimeout(() => {
-            const doubled = doubleNumbers(evenNumbers);
-            // Update DOM after 2 more seconds (total 6 seconds from start)
+            const doubled = evenNumbers.map(num => num * 2);
+            // Show [4, 8] after 2 more seconds (total 3 seconds)
             updateOutput(doubled.join(', '));
             resolve(doubled);
         }, 2000);
     });
 })
-.catch((error) => {
-    console.error("Error:", error);
-});
+.catch(error => console.error(error));
